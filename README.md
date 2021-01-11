@@ -71,7 +71,7 @@ Note that id must start from 1, because 0 is a reserved id.
 Save this file as label_map.pbtxt in models/annotations/
 
 # Step 2.3: Create trainval.txt
-trainval.txt is a list of image names without file extensions. To create trainval.txt you can simple use the following script (TODO). Save this file as trainval.txt in models/annotations/
+trainval.txt is a list of image names without file extensions. To create trainval.txt you can simple use the following command ls >> trainval.txt. Save the file in models/annotations/
 
 # Step 2.4: Create TFRecorf (.record)
 TFRecord is an important data format designed for Tensorflow. (Read more about it here (https://www.skcript.com/svr/why-every-tensorflow-developer-should-know-about-tfrecord/)). Before you can train your custom object detector, you must convert your data into the TFRecord format. We’re going to use customScripts/create_tfrecord.py to convert our data set. Run this script for both datasets (train and test).
