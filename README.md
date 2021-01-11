@@ -50,19 +50,22 @@ $ python object_detection/builders/model_builder_test.py
 In the following we create our dataset. If you do not want to do it by yourself you can download the dataset here: (TODO) and skip Step 2.
 
 We are using the 'German Traffic Sign Recognition Benchmark' (https://benchmark.ini.rub.de/gtsrb_news.html) it contains more tahn 40 classes and mote than 50.000 images in total. You can download the dataset here: (https://sid.erda.dk/public/archives/daaeac0d7ce1152aea9b61d9f1e19370/published-archive.html).
-Please notice, that we need the images in jpg. Therefore you need to convert the images from PPM to jpg. you can use https://convertio.co/de/ppm-jpg/ for this.
+Please notice, that we need the images in jpg. Therefore you need to convert the images from PPM to jpg. you can use the customScripts/myPPMtoJPGConverter.py script for this.
 
 # Step 2.1: Collect images
-Every image needs an annotation CSV file. This file contains information about the image (Width, Heights, ClassId, bounding boxes, etc...). The GTSRB dataset already has a CSV file but it contains multiple images at once. To split the CSV file into multiples, once for every image, you can use the following script (customScripts/myCsvScript.py).
+Every imageset needs an annotation CSV file. This file contains information about the images (Width, Heights, ClassId, bounding boxes, etc...). The GTSRB dataset already has a CSV file but unfortunatelly we need to perform some changes on it.
+1. Split the CSV file into multiple once, once for every image. You can use the following script (customScripts/myCsvScript.py).
 for example:
-$ python myCsvScript.py 'GT-00014.csv'
+$ python myCsvScript.py 'GT-00014.csv' 'Stop'
+2. Next you should split the data into train (ca. 90%) and test set (ca. 10%). Create the following folders for this. images/train & images/test and put the images with the corresponding csv files there.
+3. Use myCsvCombineScript.py script to combine the single csv files into a single one again (one for test and for train)
 
 
 # Step 2.2: Create Label Map (.pbtxt)
 Classes need to be listed in the label map. This will look like the following:
 item {
     id: 1
-    name: 'stop'
+    name: 'Stop'
 }
 Note that id must start from 1, because 0 is a reserved id.
 Save this file as label_map.pbtxt in models/annotations/
@@ -71,15 +74,15 @@ Save this file as label_map.pbtxt in models/annotations/
 trainval.txt is a list of image names without file extensions. To create trainval.txt you can simple use the following script (TODO). Save this file as trainval.txt in models/annotations/
 
 # Step 2.4: Create TFRecorf (.record)
-TFRecord is an important data format designed for Tensorflow. (Read more about it here (https://www.skcript.com/svr/why-every-tensorflow-developer-should-know-about-tfrecord/)). Before you can train your custom object detector, you must convert your data into the TFRecord format. We’re going to use TODO to convert our data set. At this point you should split your data in a training and a validation set. Run this script for both datasets.
+TFRecord is an important data format designed for Tensorflow. (Read more about it here (https://www.skcript.com/svr/why-every-tensorflow-developer-should-know-about-tfrecord/)). Before you can train your custom object detector, you must convert your data into the TFRecord format. We’re going to use customScripts/create_tfrecord.py to convert our data set. Run this script for both datasets (train and test).
 
 # Step 3: Download pre-trained model
 There are many pre-trained object detection models available in the model zoo. In order to train them using our custom data set, the models need to be restored in Tensorflow using their checkpoints (.ckpt files), which are records of previous model states.
 
 For this tutorial, we’re going to download ssd_mobilenet_v2_coco here (TODO) and save its model checkpoint files (model.ckpt.meta, model.ckpt.index, model.ckpt.data-00000-of-00001) to our models/checkpoints/ directory.
 
-# Step 4: Modify Coonfig (.config) File
-Each of the pretrained models has a config file that contains details about the model. To detect our custom class, the config file needs to be modified accordingly. For our traffic sign detection, you can find a config file here (TODO). If you want to train a new model with different configurations, this is the file you need to change.
+# Step 4: Modify Config (.config) File
+Each of the pretrained models has a config file that contains details about the model. To detect our custom class, the config file needs to be modified accordingly. If you want to train a new model with different configurations, this is the file you need to change.
 
 # Step 5: Train
 Follow the steps below:
@@ -87,7 +90,7 @@ Follow the steps below:
 $ cd tensorflow/models 
 $ mkdir train # Make directory for storing training progress
 $ mkdir eval # Make directory for storing validation results
-$ python research/object_detection/train.py \
+$ python research/object_detection/legacy/train.py \
     --logtostderr \
     --train_dir=train \
     --pipeline_config_path=ssd_mobilenet_v2_coco.config
@@ -110,6 +113,6 @@ $ python research/object_detection/export_inference_graph.py \
 --output_directory fine_tuned_model
 
 # Step 8: Testing
-For testing you can use the following script (TODO). it takes one image and displays the image again with bounding boxes.
+For testing you can use the following script customScripts/Object_detection_image.py. it takes one image and displays the image again but now with bounding boxes.
 
 
