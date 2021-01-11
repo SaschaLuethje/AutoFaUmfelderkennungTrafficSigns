@@ -53,11 +53,10 @@ We are using the 'German Traffic Sign Recognition Benchmark' (https://benchmark.
 Please notice, that we need the images in jpg. Therefore you need to convert the images from PPM to jpg. you can use https://convertio.co/de/ppm-jpg/ for this.
 
 # Step 2.1: Collect images
-Every image needs an annotation CSV file. This file contains information about the image (Width, Heights, ClassId, bounding boxes, etc...). To create the CSV files install
+Every image needs an annotation CSV file. This file contains information about the image (Width, Heights, ClassId, bounding boxes, etc...). The GTSRB dataset already has a CSV file but it contains multiple images at once. To split the CSV file into multiples, once for every image, you can use the following script (customScripts/myCsvScript.py).
+for example:
+$ python myCsvScript.py 'GT-00014.csv'
 
-$ pip install pascal-voc-writer
-
-and use the following python script (TODO).
 
 # Step 2.2: Create Label Map (.pbtxt)
 Classes need to be listed in the label map. This will look like the following:
