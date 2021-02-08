@@ -115,4 +115,9 @@ $ python research/object_detection/export_inference_graph.py \
 # Step 8: Testing
 For testing you can use the following script customScripts/Object_detection_image.py. it takes one image and displays the image again but now with bounding boxes.
 
+# Step 8: Convert for Jetson Nano
+To use the model with the Jetson Nano, we need to convert the saved model (.pb) to .onnx
+
+$ python3 -m tf2onnx.convert --saved-model ./fine_tuned_model/saved_model --output model.onnx --opset 11
+
 
