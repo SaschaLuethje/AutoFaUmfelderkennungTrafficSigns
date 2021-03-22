@@ -46,7 +46,7 @@ You can run a quick test to confirm that everything is working properly:
 
 $ python object_detection/builders/model_builder_test.py
 
-# Step 2: Collect images
+# Step 2: Dataset
 In the following we create our dataset. If you do not want to do it by yourself you can download the dataset here: (TODO) and skip Step 2.
 
 We are using the 'German Traffic Sign Recognition Benchmark' (https://benchmark.ini.rub.de/gtsrb_news.html) it contains more tahn 40 classes and mote than 50.000 images in total. You can download the dataset here: (https://sid.erda.dk/public/archives/daaeac0d7ce1152aea9b61d9f1e19370/published-archive.html).
@@ -54,9 +54,9 @@ Please notice, that we need the images in jpg. Therefore you need to convert the
 
 # Step 2.1: Collect images
 Every imageset needs an annotation CSV file. This file contains information about the images (Width, Heights, ClassId, bounding boxes, etc...). The GTSRB dataset already has a CSV file but unfortunatelly we need to perform some changes on it.
-1. Split the CSV file into multiple once, once for every image. You can use the following script (customScripts/myCsvScript.py).
+1. Split the CSV file into multiple once, once for every image. You can use the following script (customScripts/myCsvDividerScript.py).
 for example:
-$ python myCsvScript.py 'GT-00014.csv' 'Stop'
+$ python myCsvDividerScript.py 'GT-00014.csv' 'Stop'
 2. Next you should split the data into train (ca. 90%) and test set (ca. 10%). Create the following folders for this. images/train & images/test and put the images with the corresponding csv files there.
 3. Use myCsvCombineScript.py script to combine the single csv files into a single one again (one for test and for train)
 
@@ -73,7 +73,7 @@ Save this file as label_map.pbtxt in models/annotations/
 # Step 2.3: Create trainval.txt
 trainval.txt is a list of image names without file extensions. To create trainval.txt you can simple use the following command ls >> trainval.txt. Save the file in models/annotations/
 
-# Step 2.4: Create TFRecorf (.record)
+# Step 2.4: Create TFRecord (.record)
 TFRecord is an important data format designed for Tensorflow. (Read more about it here (https://www.skcript.com/svr/why-every-tensorflow-developer-should-know-about-tfrecord/)). Before you can train your custom object detector, you must convert your data into the TFRecord format. We’re going to use customScripts/create_tfrecord.py to convert our data set. Run this script for both datasets (train and test).
 
 # Step 3: Download pre-trained model
@@ -115,9 +115,5 @@ $ python research/object_detection/export_inference_graph.py \
 # Step 8: Testing
 For testing you can use the following script customScripts/Object_detection_image.py. it takes one image and displays the image again but now with bounding boxes.
 
-# Step 8: Convert for Jetson Nano
-To use the model with the Jetson Nano, we need to convert the saved model (.pb) to .onnx
-
-$ python3 -m tf2onnx.convert --saved-model ./fine_tuned_model/saved_model --output model.onnx --opset 11
 
 
