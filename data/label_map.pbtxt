@@ -213,3 +213,8 @@ item {
     name: 'restriction_ends_(overtaking_(trucks))_(other)'
 }
 
+item {
+    id: 44
+    name: 'start-stop'
+}
+

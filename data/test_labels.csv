@@ -108,3 +108,14 @@ filename,width,height,xmin,ymin,xmax,ymax,class
 00891.jpg,800,1360,747,551,767,571,speed_limit_70_(prohibitory)
 00891.jpg,800,1360,473,556,493,576,speed_limit_70_(prohibitory)
 00893.jpg,800,1360,821,482,849,510,priority_road_(other)
+1-0.jpg,480,640,218,22,355,28,start-stop
+6-0.jpg,480,640,217,25,355,29,start-stop
+12-0.jpg,480,640,204,33,356,38,start-stop
+17-0.jpg,480,640,184,46,363,53,start-stop
+23-0.jpg,480,640,133,80,380,90,start-stop
+31-0.jpg,480,640,0,301,480,370,start-stop
+466-0.jpg,480,640,1,23,59,39,start-stop
+473-0.jpg,480,640,1,32,132,68,start-stop
+476-0.jpg,480,640,1,38,174,83,start-stop
+481-0.jpg,480,640,0,57,247,111,start-stop
+489-0.jpg,480,640,0,178,400,227,start-stop
