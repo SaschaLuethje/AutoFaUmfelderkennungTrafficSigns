@@ -1,6 +1,3 @@
-# The csv file of the GTSRB file contains all images. This script devides the csv file into multiple ones, one for every image.
-# usage: for example $ python myCsvScript.py 'GT-00014.csv' 'Stop'
-
 import sys
 import xml.etree.ElementTree as ET
 import lxml.builder
